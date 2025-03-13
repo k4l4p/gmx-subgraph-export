@@ -1,0 +1,17 @@
+{
+  "name": "gmx-subgraph-export",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@apollo/client": "^3.13.4",
+    "@gmx-io/sdk": "^0.2.0",
+    "viem": "^2.23.10"
+  }
+}
