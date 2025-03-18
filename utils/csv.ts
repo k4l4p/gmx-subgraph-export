@@ -1,5 +1,5 @@
-import * as fs from 'fs'
-import * as path from 'path'
+import * as fs from "fs"
+import * as path from "path"
 
 const CSV_SEPARATOR = ","
 
@@ -9,7 +9,7 @@ function filterFields<T>(data: T, excludedFields: (keyof T)[]): Partial<T> {
 	return result
 }
 
-function convertToCSV<T>(
+export function convertToCSV<T>(
 	data: Partial<T>[],
 	customHeaders?: Partial<Record<keyof T, string>>
 ): string {
@@ -48,7 +48,10 @@ export function exportToCsv<T>(
 		for (let i = 0; i < splitCount; i++) {
 			const chunk = filteredData.slice(i * chunkSize, (i + 1) * chunkSize)
 			const chunkCsv = convertToCSV(chunk, customHeaders)
-			const outputPath = path.join(process.cwd(), `${fileName}_part${i + 1}.csv`)
+			const outputPath = path.join(
+				process.cwd(),
+				`${fileName}_part${i + 1}.csv`
+			)
 			fs.writeFileSync(outputPath, chunkCsv)
 		}
 	} else {

@@ -1,6 +1,8 @@
 import { GmxSdk } from "@gmx-io/sdk"
-import { exportToCsv } from "./csv"
-import { tradeActions } from "./tradeActions"
+import { convertToCSV } from "./utils/csv"
+import { uploadStringToDrive } from "./utils/googleDrive"
+import { tradeActions } from "./utils/tradeActions"
+import { formatEpochToDay, getDailyTimeRange } from "./utils/utils"
 
 const gmx = new GmxSdk({
 	chainId: 42161,
@@ -17,10 +19,11 @@ const { marketsInfoData } = await gmx.markets.getMarketsInfo()
 if (!marketsInfoData) {
 	throw new Error("No markets info data")
 }
+const { fromTxTimestamp, toTxTimestamp } = getDailyTimeRange()
 
 const trades = await tradeActions(marketsInfoData, {
-	fromTxTimestamp: 1740787200,
-	toTxTimestamp: 1742263854,
+	fromTxTimestamp,
+	toTxTimestamp,
 	subgraphUrl: gmx.config.subgraphUrl,
 })
 
@@ -28,4 +31,9 @@ if (!trades) {
 	throw new Error("No trades")
 }
 
-exportToCsv("rawData", trades, [])
+const csv = convertToCSV(trades)
+
+uploadStringToDrive(
+	csv,
+	`${formatEpochToDay(fromTxTimestamp)}_${formatEpochToDay(toTxTimestamp)}`
+)

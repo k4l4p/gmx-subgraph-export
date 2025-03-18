@@ -131,3 +131,40 @@ export const getSyntheticsGraphClient = (subgraphUrl: string) => {
 		cache: new InMemoryCache(),
 	})
 }
+
+export function getDailyTimeRange() {
+	const now = new Date()
+	// Set to UTC midnight of current day
+	const todayStart =
+		Date.UTC(
+			now.getUTCFullYear(),
+			now.getUTCMonth(),
+			now.getUTCDate(),
+			0,
+			0,
+			0,
+			0
+		) / 1000
+
+	// Set to UTC midnight of previous day
+	const yesterdayStart =
+		Date.UTC(
+			now.getUTCFullYear(),
+			now.getUTCMonth(),
+			now.getUTCDate() - 1,
+			0,
+			0,
+			0,
+			0
+		) / 1000
+
+	return {
+		fromTxTimestamp: yesterdayStart,
+		toTxTimestamp: todayStart,
+	}
+}
+
+export function formatEpochToDay(timestamp: number): string {
+    const date = new Date(timestamp * 1000)
+    return date.toISOString().split('T')[0]
+}
