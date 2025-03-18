@@ -20,7 +20,7 @@ if (!marketsInfoData) {
 
 const trades = await tradeActions(marketsInfoData, {
 	fromTxTimestamp: 1740787200,
-	toTxTimestamp: 1741837950,
+	toTxTimestamp: 1742263854,
 	subgraphUrl: gmx.config.subgraphUrl,
 })
 

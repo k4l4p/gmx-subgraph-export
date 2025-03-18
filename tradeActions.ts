@@ -76,6 +76,8 @@ const filterFun = (arr: RawTradeAction[], marketsInfo: MarketsInfoData) => {
 					)
 			  )
 			: ""
+
+		const trxHash = value.transaction.hash
 		return {
 			account: value.account,
 			eventName: value.eventName,
@@ -91,6 +93,7 @@ const filterFun = (arr: RawTradeAction[], marketsInfo: MarketsInfoData) => {
 			executionPrice,
 			indexTokenPriceMin,
 			indexTokenPriceMax,
+			trxHash,
 		}
 	})
 
