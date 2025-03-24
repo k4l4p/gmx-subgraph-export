@@ -77,6 +77,8 @@ const filterFun = (arr: RawTradeAction[], marketsInfo: MarketsInfoData) => {
 			  )
 			: ""
 
+		const date = new Date(value.transaction.timestamp * 1000).toUTCString()
+
 		const trxHash = value.transaction.hash
 		return {
 			account: value.account,
@@ -84,6 +86,7 @@ const filterFun = (arr: RawTradeAction[], marketsInfo: MarketsInfoData) => {
 			orderType: getOrderTypeLabel(value.orderType),
 			sizeDeltaUsd: customFormatUsd(value.sizeDeltaUsd),
 			timestamp: value.transaction.timestamp,
+			date,
 			marketName,
 			marketAddress: value.marketAddress,
 			isLong: value.isLong,
