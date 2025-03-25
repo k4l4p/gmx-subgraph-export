@@ -35,7 +35,7 @@ if (!trades) {
 const csv = convertToCSV(trades)
 const customId = `${
 	new Date(fromTxTimestamp * 1000).getUTCMonth() + 1
-}-${fromTxTimestamp}`
+}-${fromTxTimestamp}-${Date.now()}`
 
 const res = await uploadCsv(
 	csv,
